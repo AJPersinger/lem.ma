@@ -19,9 +19,15 @@ def isProperSudoku(matrix):
 # -------------------------------------------------------------------------- #
 #  Program:
 #    1. Read in a sudoku puzzle from the file
-#    2. Check if any Eigenvalues are 36, if so check if the vector are all 1's
-#    3. Repeat process with the Transpose
+#    2. Create a list of sympy matrices
+#    2. Check the sum of rows and columns, the elements of the rows and columns,
+#           and the length of the rows and columns to ensure they are proper
+#    3. Return true or false
 # -------------------------------------------------------------------------- #
+
+# For the record, the longest part of this code is reading in the data from the
+#      file, not any of the algorthms
+
 print "Welcome to the Sudoku Solver!"
 
 # Read in the puzzle strings from the file
