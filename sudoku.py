@@ -11,9 +11,10 @@ def isProperSudoku(matrix):
          or len(sortedList) != len(matrix.row(i))\
          or sorted(matrix.row(i)) != sortedList\
          or sorted(matrix.col(i)) != sortedList:
-            return false
+            return False
 
-    return true
+    return True
+
 
 # -------------------------------------------------------------------------- #
 #  Program:
