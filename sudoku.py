@@ -5,6 +5,7 @@
 from sympy import *
 
 def isProperSudoku(matrix):
+    sortedList = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     for i in xrange(9):
         rowSum = 0
         colSum = 0
@@ -14,7 +15,11 @@ def isProperSudoku(matrix):
         for number in matrix.col(i):
             colSum += number
 
-        if colSum != 36 and rowSum != 36:
+        if colSum != 36 or rowSum != 36 \
+         or len(sortedList) != len(matrix.col(i)) \
+         or len(sortedList) != len(matrix.row(i))\
+         or sorted(matrix.row(i)) != sortedList\
+         or sorted(matrix.col(i)) != sortedList:
             return false
 
     return true
