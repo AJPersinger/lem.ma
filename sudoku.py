@@ -15,8 +15,9 @@ def isProperSudoku(matrix):
                 return False
     else:
         for i in xrange(matrix.shape[0]):
-            if  len(matrix.row(i)) != matrix.shape[0] \
-             or len(matrix.col(i)) != matrix.shape[0]:
+            if matrix[i, 0] != matrix[i, 1] and matrix[i, 0] != matrix[i, 2] \
+             and matrix[i, 1] != matrix[i, 2] and matrix[i, 0] > 9 and \
+             matrix[i, 1] > 9 and matrix[i, 2] > 9:
                 return False
 
     return True
