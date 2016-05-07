@@ -5,13 +5,19 @@
 from sympy import *
 
 def isProperSudoku(matrix):
-    sortedList = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    for i in xrange(matrix.shape[0]):
-        if  len(sortedList) != len(matrix.col(i)) \
-         or len(sortedList) != len(matrix.row(i))\
-         or sorted(matrix.row(i)) != sortedList\
-         or sorted(matrix.col(i)) != sortedList:
-            return False
+    sortedList = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    if matrix.shape[0] == 9:
+        for i in xrange(matrix.shape[0]):
+            if  len(matrix.row(i)) != matrix.shape[0] \
+             or len(matrix.col(i)) != matrix.shape[0]\
+             or sorted(matrix.row(i)) != sortedList\
+             or sorted(matrix.col(i)) != sortedList:
+                return False
+    else:
+        for i in xrange(matrix.shape[0]):
+            if  len(matrix.row(i)) != matrix.shape[0] \
+             or len(matrix.col(i)) != matrix.shape[0]:
+                return False
 
     return True
 
@@ -47,8 +53,30 @@ t = 0
 for k in xrange(numberPuzzles):
     gridSpace.append(eye(9))
     for i in xrange(81):
-        (gridSpace[k])[int(i/9),i%9] = int(listOfDigs[t])
+        (gridSpace[k])[int(i/9),i%9] = int(listOfDigs[t])+1
         t += 1
 
-for puzzle in gridSpace:
-    print isProperSudoku(puzzle)
+print isProperSudoku(gridSpace[0])
+print isProperSudoku(gridSpace[0][-3:, :3])
+
+
+for i in xrange(numberPuzzles):
+    if isProperSudoku(Matrix(gridSpace[i][:3, :3])) == True \
+    and isProperSudoku(gridSpace[i][:3, 3:-3]) == True \
+    and isProperSudoku(gridSpace[i][:3, -3:]) == True \
+    and isProperSudoku(gridSpace[i][3:-3, :3]) == True \
+    and isProperSudoku(gridSpace[i][3:-3, 3:-3]) == True \
+    and isProperSudoku(Matrix(gridSpace[i][3:-3 :-3])) == True \
+    and isProperSudoku(gridSpace[i][-3:, -3:]) == True \
+    and isProperSudoku(gridSpace[i][-3:, 3:-3]) == True \
+    and isProperSudoku(gridSpace[i][-3:, :3]) == True \
+    and isProperSudoku(gridSpace[i]) == True:
+        print True
+
+#is for top middle
+#is for top right
+#is for middle left
+#is for middle middle
+#is for bottom right
+#is for bottom middle
+#is for bottom left
