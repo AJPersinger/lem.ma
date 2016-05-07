@@ -56,10 +56,7 @@ for k in xrange(numberPuzzles):
         (gridSpace[k])[int(i/9),i%9] = int(listOfDigs[t])+1
         t += 1
 
-print isProperSudoku(gridSpace[0])
-print isProperSudoku(gridSpace[0][-3:, :3])
-
-
+# Test sub matrices and the matrix
 for i in xrange(numberPuzzles):
     if isProperSudoku(Matrix(gridSpace[i][:3, :3])) == True \
     and isProperSudoku(gridSpace[i][:3, 3:-3]) == True \
