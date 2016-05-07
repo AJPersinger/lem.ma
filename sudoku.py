@@ -3,15 +3,21 @@
 #  Author: Axel-Jose Persinger
 
 from sympy import *
-from random import randint
 
-# -------------------------------------------------------------------------- #
-#  Gobal Variables:
-#    gridSpace - is the matrix representing a sudoku grid
-#    rowSumEigen - is the eigenvector if a matrix has the rows equalling a sum
-# -------------------------------------------------------------------------- #
-gridSpace= []
-rowSumEigen = [Matrix([[1],[1],[1],[1],[1],[1],[1],[1],[1]])]
+def isProperSudoku(matrix):
+    for i in xrange(9):
+        rowSum = 0
+        colSum = 0
+        for number in matrix.row(i):
+            rowSum += number
+
+        for number in matrix.col(i):
+            colSum += number
+
+        if colSum != 36 and rowSum != 36:
+            return false
+
+    return true
 
 # -------------------------------------------------------------------------- #
 #  Program:
@@ -41,9 +47,5 @@ for k in xrange(numberPuzzles):
         (gridSpace[k])[int(i/9),i%9] = int(listOfDigs[t])
         t += 1
 
-
-for i in xrange(len(gridSpace)):
-    if gridSpace[i].eigenvects()[0][0] == 36:
-        if gridSpace[i].eigenvects()[0][2] == rowSumEigen:
-            print "Puzzle Number " + str(i) + " is a correct solution"
-            print gridSpace[i]
+for puzzle in gridSpace:
+    print isProperSudoku(puzzle)
