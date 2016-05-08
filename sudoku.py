@@ -3,21 +3,18 @@
 #  Author: Axel-Jose Persinger
 
 from sympy import *
+import math
 
 def isProperSub(matrix):
-    n = int(math.sqrt(matrix.shape[0])
+    n = int(math.sqrt(matrix.shape[0]))
     sortedList = [x for x in xrange(1, matrix.shape[0]+1)]
     rowSlice = [x for x in xrange(n)]
-    colSlice = [x for x in xrange(n))]
+    colSlice = [x for x in xrange(n)]
 
     for i in xrange(n):
-        colSlice = [x for x in xrange(n)]
         for k in xrange(n):
-            if sorted(matrix.extract(rowSlice, colSlice)) != sortedList:
+            if sorted(matrix.extract(range(i*n, (i+1)*n), range(k*n, (k+1)*n))) != sortedList:
                 return False
-            colSlice = [x+n for x in colSlice]
-        rowSlice = [x+n for x in rowSlice]
-
     return True
 
 
@@ -66,8 +63,7 @@ for k in xrange(numberPuzzles):
         (gridSpace[k])[int(i/9),i%9] = int(listOfDigs[t])+1
         t += 1
 
-isProperSub(gridSpace[0])
-
+print isProperSudoku(gridSpace[0])
 # Test sub matrices and the matrix
 #for i in xrange(numberPuzzles):
 #    print isProperSudoku(gridSpace[i])
