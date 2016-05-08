@@ -5,28 +5,21 @@
 from sympy import *
 import math
 
-def isProperSub(matrix):
-    n = int(math.sqrt(matrix.shape[0]))
-    sortedList = [x for x in xrange(1, matrix.shape[0]+1)]
-    rowSlice = [x for x in xrange(n)]
-    colSlice = [x for x in xrange(n)]
-
-    for i in xrange(n):
-        for k in xrange(n):
-            if sorted(matrix.extract(range(i*n, (i+1)*n), range(k*n, (k+1)*n))) != sortedList:
-                return False
-    return True
-
-
 def isProperSudoku(matrix):
-    sortedList = [x for x in xrange(1, matrix.shape[0]+1)]
+    oneThruN = [x for x in xrange(1, matrix.shape[0]+1)]
 
     for i in xrange(matrix.shape[0]):
-        if sorted(matrix.row(i)) != sortedList \
-        or sorted(matrix.col(i)) != sortedList:
+        if sorted(matrix.row(i)) != oneThruN \
+        or sorted(matrix.col(i)) != oneThruN:
             return False
 
-    return isProperSub(matrix)
+    n = int(math.sqrt(matrix.shape[0]))
+    for i in xrange(n):
+        for k in xrange(n):
+            if sorted(matrix.extract(range(i*n, (i+1)*n), range(k*n, (k+1)*n))) != oneThruN:
+                return False
+
+    return True
 
 
 # -------------------------------------------------------------------------- #
