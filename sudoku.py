@@ -5,19 +5,19 @@
 from sympy import *
 
 def isProperSudoku(matrix):
-    sortedList = [x for x in xrange(1, 10)]
     k = sqrt(matrix.shape[0])
+    sortedList = [x for x in xrange(1, k**2+1)]
     sumRowCol = sum(matrix.row(0))
     if(k % 1 == 0):
-        if  isProperSudoku(matrix[:k, :k]) == True \
-        and isProperSudoku(matrix[:k, k:-k]) == True \
-        and isProperSudoku(matrix[:k, -k:]) == True \
-        and isProperSudoku(matrix[k:-k, :k]) == True \
-        and isProperSudoku(matrix[k:-k, k:-k]) == True \
-        and isProperSudoku(matrix[k:-k, -k:]) == True \
-        and isProperSudoku(matrix[-k:, -k:]) == True \
-        and isProperSudoku(matrix[-k:, k:-k]) == True \
-        and isProperSudoku(matrix[-k:, :k]) == True:
+        if  isProperSudoku(matrix[:k, :k]) \
+        and isProperSudoku(matrix[:k, k:-k]) \
+        and isProperSudoku(matrix[:k, -k:]) \
+        and isProperSudoku(matrix[k:-k, :k]) \
+        and isProperSudoku(matrix[k:-k, k:-k]) \
+        and isProperSudoku(matrix[k:-k, -k:]) \
+        and isProperSudoku(matrix[-k:, -k:]) \
+        and isProperSudoku(matrix[-k:, k:-k]) \
+        and isProperSudoku(matrix[-k:, :k]):
             return True
     else:
          if sorted(matrix) == sortedList:
