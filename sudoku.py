@@ -5,21 +5,13 @@
 from sympy import *
 
 def isProperSudoku(matrix):
-    sortedList = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    if matrix.shape[0] == 9:
-        for i in xrange(matrix.shape[0]):
-            if  len(matrix.row(i)) != matrix.shape[0] \
-             or len(matrix.col(i)) != matrix.shape[0]\
-             or sorted(matrix.row(i)) != sortedList\
-             or sorted(matrix.col(i)) != sortedList:
-                return False
-    else:
-        for i in xrange(matrix.shape[0]):
-            if matrix[i, 0] != matrix[i, 1] and matrix[i, 0] != matrix[i, 2] \
-             and matrix[i, 1] != matrix[i, 2] and matrix[i, 0] > 9 and \
-             matrix[i, 1] > 9 and matrix[i, 2] > 9:
-                return False
-
+    sortedList = [x for x in xrange(1, matrix.shape[0]+1)]
+    for i in xrange(matrix.shape[0]):
+        if  len(matrix.row(i)) != matrix.shape[0] \
+         or len(matrix.col(i)) != matrix.shape[0]\
+         or sorted(matrix.row(i)) != sortedList\
+         or sorted(matrix.col(i)) != sortedList:
+            return False
     return True
 
 
@@ -58,6 +50,7 @@ for k in xrange(numberPuzzles):
         t += 1
 
 # Test sub matrices and the matrix
+
 for i in xrange(numberPuzzles):
     if isProperSudoku(Matrix(gridSpace[i][:3, :3])) == True \
     and isProperSudoku(gridSpace[i][:3, 3:-3]) == True \
@@ -70,6 +63,7 @@ for i in xrange(numberPuzzles):
     and isProperSudoku(gridSpace[i][-3:, :3]) == True \
     and isProperSudoku(gridSpace[i]) == True:
         print True
+
 
 #is for top middle
 #is for top right
