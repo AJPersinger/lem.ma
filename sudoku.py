@@ -4,32 +4,46 @@
 
 from sympy import *
 
+def isProperSub(matrix):
+    sortedList = [x for x in xrange(1, matrix.shape[0]+1)]
+    rowSlice = [x for x in xrange(sqrt(matrix.shape[0]))]
+    colSlice = [x for x in xrange(sqrt(matrix.shape[0]))]
+
+    for i in xrange(sqrt(matrix.shape[0])):
+        colSlice = [x for x in xrange(sqrt(matrix.shape[0]))]
+        for k in xrange(sqrt(matrix.shape[0])):
+            if sorted(matrix.extract(rowSlice, colSlice)) != sortedList:
+                return False
+            colSlice = [x+sqrt(matrix.shape[0]) for x in colSlice]
+        rowSlice = [x+sqrt(matrix.shape[0]) for x in rowSlice]
+
+
 def isProperSudoku(matrix):
-    k = sqrt(matrix.shape[0])
-    sumRowCol = sum(matrix.row(0))
-    if(k % 1 == 0):
-        if  isProperSudoku(matrix[:k, :k]) \
-        and isProperSudoku(matrix[:k, k:-k]) \
-        and isProperSudoku(matrix[:k, -k:]) \
-        and isProperSudoku(matrix[k:-k, :k]) \
-        and isProperSudoku(matrix[k:-k, k:-k]) \
-        and isProperSudoku(matrix[k:-k, -k:]) \
-        and isProperSudoku(matrix[-k:, -k:]) \
-        and isProperSudoku(matrix[-k:, k:-k]) \
-        and isProperSudoku(matrix[-k:, :k]):
-            return True
-    else:
-        sortedList = [x for x in xrange(1, matrix.shape[0]**2+1)]
-        if \
-        sorted(matrix.row(0)) != sorted(matrix.row(1)) and \
-        sorted(matrix.row(1)) != sorted(matrix.row(2)) and \
-        sorted(matrix.row(2)) != sorted(matrix.row(0)) and \
-        sorted(matrix.col(0)) != sorted(matrix.col(1)) and \
-        sorted(matrix.col(1)) != sorted(matrix.col(2)) and \
-        sorted(matrix.col(2)) != sorted(matrix.col(0)) and \
-        sorted(matrix) == sortedList:
-            return True
-    return False
+    sortedList = [x for x in xrange(1, matrix.shape[0]+1)]
+
+    for i in xrange(matrix.shape[0]):
+        if sorted(matrix.row(i)) != sortedList \
+        or sorted(matrix.col(i)) != sortedList:
+            return False
+
+    if isProperSub(matrix) != True:
+        return False
+
+    return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # -------------------------------------------------------------------------- #
@@ -66,6 +80,8 @@ for k in xrange(numberPuzzles):
         (gridSpace[k])[int(i/9),i%9] = int(listOfDigs[t])+1
         t += 1
 
+isProperSub(gridSpace[0])
+
 # Test sub matrices and the matrix
-for i in xrange(numberPuzzles):
-    print isProperSudoku(gridSpace[i])
+#for i in xrange(numberPuzzles):
+#    print isProperSudoku(gridSpace[i])
