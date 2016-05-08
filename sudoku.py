@@ -5,17 +5,20 @@
 from sympy import *
 
 def isProperSub(matrix):
+    n = int(math.sqrt(matrix.shape[0])
     sortedList = [x for x in xrange(1, matrix.shape[0]+1)]
-    rowSlice = [x for x in xrange(sqrt(matrix.shape[0]))]
-    colSlice = [x for x in xrange(sqrt(matrix.shape[0]))]
+    rowSlice = [x for x in xrange(n)]
+    colSlice = [x for x in xrange(n))]
 
-    for i in xrange(sqrt(matrix.shape[0])):
-        colSlice = [x for x in xrange(sqrt(matrix.shape[0]))]
-        for k in xrange(sqrt(matrix.shape[0])):
+    for i in xrange(n):
+        colSlice = [x for x in xrange(n)]
+        for k in xrange(n):
             if sorted(matrix.extract(rowSlice, colSlice)) != sortedList:
                 return False
-            colSlice = [x+sqrt(matrix.shape[0]) for x in colSlice]
-        rowSlice = [x+sqrt(matrix.shape[0]) for x in rowSlice]
+            colSlice = [x+n for x in colSlice]
+        rowSlice = [x+n for x in rowSlice]
+
+    return True
 
 
 def isProperSudoku(matrix):
@@ -26,24 +29,7 @@ def isProperSudoku(matrix):
         or sorted(matrix.col(i)) != sortedList:
             return False
 
-    if isProperSub(matrix) != True:
-        return False
-
-    return True
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return isProperSub(matrix)
 
 
 # -------------------------------------------------------------------------- #
