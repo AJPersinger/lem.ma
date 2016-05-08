@@ -6,7 +6,7 @@ from sympy import *
 
 def isProperSudoku(matrix):
     k = sqrt(matrix.shape[0])
-    sortedList = [x for x in xrange(1, k**2+1)]
+    sortedList = [x for x in xrange(1, matrix.shape[0]**2+1)]
     sumRowCol = sum(matrix.row(0))
     if(k % 1 == 0):
         if  isProperSudoku(matrix[:k, :k]) \
@@ -20,11 +20,8 @@ def isProperSudoku(matrix):
         and isProperSudoku(matrix[-k:, :k]):
             return True
     else:
-         if sorted(matrix) == sortedList:
-             for i in xrange(matrix.shape[0]):
-                if sum(matrix.row(i)) == sumRowCol \
-                or sum(matrix.col(i)) == sumRowCol:
-                    return True
+        if sorted(matrix) == sortedList:
+            return True
     return False
 
 
