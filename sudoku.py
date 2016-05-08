@@ -5,14 +5,48 @@
 from sympy import *
 
 def isProperSudoku(matrix):
-    sortedList = [x for x in xrange(1, matrix.shape[0]+1)]
-    for i in xrange(matrix.shape[0]):
-        if  len(matrix.row(i)) != matrix.shape[0] \
-         or len(matrix.col(i)) != matrix.shape[0]\
-         or sorted(matrix.row(i)) != sortedList\
-         or sorted(matrix.col(i)) != sortedList:
-            return False
-    return True
+    sortedList = [x for x in xrange(1, 10)]
+    k = sqrt(matrix.shape[0])
+    sumRowCol = sum(matrix.row(0))
+    if(k % 1 == 0):
+        '''
+        print matrix
+        print matrix[:k, :k]
+        print matrix[:k, k:-k]
+        print matrix[:k, -k:]
+        print matrix[k:-k, :k]
+        print matrix[k:-k, k:-k]
+        print matrix[k:-k, -k:]
+        print matrix[-k:, -k:]
+        print matrix[-k:, k:-k]
+        print matrix[-k:, :k]
+        print isProperSudoku(matrix[:k, :k])
+        print isProperSudoku(matrix[:k, k:-k])
+        print isProperSudoku(matrix[:k, -k:])
+        print isProperSudoku(matrix[k:-k, :k])
+        print isProperSudoku(matrix[k:-k, k:-k])
+        print isProperSudoku(matrix[k:-k, -k:])
+        print isProperSudoku(matrix[-k:, -k:])
+        print isProperSudoku(matrix[-k:, k:-k])
+        print isProperSudoku(matrix[-k:, :k])
+        '''
+        if  isProperSudoku(matrix[:k, :k]) == True \
+        and isProperSudoku(matrix[:k, k:-k]) == True \
+        and isProperSudoku(matrix[:k, -k:]) == True \
+        and isProperSudoku(matrix[k:-k, :k]) == True \
+        and isProperSudoku(matrix[k:-k, k:-k]) == True \
+        and isProperSudoku(matrix[k:-k, -k:]) == True \
+        and isProperSudoku(matrix[-k:, -k:]) == True \
+        and isProperSudoku(matrix[-k:, k:-k]) == True \
+        and isProperSudoku(matrix[-k:, :k]) == True:
+            return True
+    else:
+         if sorted(matrix) == sortedList:
+             for i in xrange(matrix.shape[0]):
+                if sum(matrix.row(i)) == sumRowCol \
+                or sum(matrix.col(i)) == sumRowCol:
+                    return True
+    return False
 
 
 # -------------------------------------------------------------------------- #
@@ -49,20 +83,30 @@ for k in xrange(numberPuzzles):
         (gridSpace[k])[int(i/9),i%9] = int(listOfDigs[t])+1
         t += 1
 
-# Test sub matrices and the matrix
 
+testMatrixOne = Matrix([
+[1, 4, 3, 2],
+[2, 1, 4, 3],
+[3, 2, 1, 4],
+[4, 3, 2, 1]
+])
+
+testMatrixTwo = Matrix([
+[1, 2, 3, 4, 5, 6, 7, 8, 9],
+[9, 1, 2, 3, 4, 5, 6, 7, 8],
+[8, 9, 1, 2, 3, 4, 5, 6, 7],
+[7, 8, 9, 1, 2, 3, 4, 5, 6],
+[6, 7, 8, 9, 1, 2, 3, 4, 5],
+[5, 6, 7, 8, 9, 1, 2, 3, 4],
+[4, 5, 6, 7, 8, 9, 1, 2, 3],
+[3, 4, 5, 6, 7, 8, 9, 1, 2],
+[2, 3, 4, 5, 6, 7, 8, 9, 1]
+])
+
+
+# Test sub matrices and the matrix
 for i in xrange(numberPuzzles):
-    if isProperSudoku(Matrix(gridSpace[i][:3, :3])) == True \
-    and isProperSudoku(gridSpace[i][:3, 3:-3]) == True \
-    and isProperSudoku(gridSpace[i][:3, -3:]) == True \
-    and isProperSudoku(gridSpace[i][3:-3, :3]) == True \
-    and isProperSudoku(gridSpace[i][3:-3, 3:-3]) == True \
-    and isProperSudoku(Matrix(gridSpace[i][3:-3 :-3])) == True \
-    and isProperSudoku(gridSpace[i][-3:, -3:]) == True \
-    and isProperSudoku(gridSpace[i][-3:, 3:-3]) == True \
-    and isProperSudoku(gridSpace[i][-3:, :3]) == True \
-    and isProperSudoku(gridSpace[i]) == True:
-        print True
+    print isProperSudoku(gridSpace[i])
 
 
 #is for top middle
